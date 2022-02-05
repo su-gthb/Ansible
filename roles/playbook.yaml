@@ -1,0 +1,6 @@
+- hosts: srv
+  remote_user: root
+  become: yes
+  roles:
+   - apache
+   - clean

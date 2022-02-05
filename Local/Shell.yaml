@@ -1,0 +1,18 @@
+- hosts: web
+  remote_user: sumit
+  become: yes
+  tasks:
+  - name: get IP
+    shell:
+      cmd: ifconfig
+    register: ifconfig
+  - debug: var=ifconfig.stdout_lines    
+  #    state: latest
+  #- name: Install Apache
+  # apt:
+  #    name: lighttpd
+  #    state: present
+  #- name: Remove Apache
+  # apt:
+  #  name: lighttpd
+     # state: absent    

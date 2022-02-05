@@ -1,0 +1,34 @@
+- hosts: web
+  remote_user: sumit
+  become: yes
+  tasks:
+  - name: Upgrade packages
+    apt:
+      name: '*'
+      state: latest
+  - name: Install Apache
+    apt:
+      name: lighttpd
+      state: present
+    notify:
+     - Restart Apache  
+  - name: Create Webpage
+    shell:
+      cmd: echo "Hello from the Ansible configured website" >/var/www/html/index.html
+  - name: Copy Files
+    copy:
+      src: /home/sumit/Documents/Ansible/AWS/mysite/
+      dest: /var/www/html/ 
+      mode: '777'     
+  - name: Get public IP
+    shell:
+      cmd: ifconfig
+    register: ifconfig
+  - debug: var=ifconfig.stdout_lines
+  handlers  :
+  - name: Restart Apache
+    service: 
+      name: httpd
+      state: reloaded
+   
+      

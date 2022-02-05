@@ -1,0 +1,16 @@
+- hosts: web
+  remote_user: sumit
+  become: yes
+  tasks:
+  - name: Upgrade packages
+    apt:
+      name: '*'
+      state: latest
+  - name: Install Apache
+    apt:
+      name: lighttpd
+      state: present
+  #- name: Remove Apache
+   # apt:
+    #  name: lighttpd
+     # state: absent    

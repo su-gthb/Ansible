@@ -1,0 +1,10 @@
+---
+- name: Remove webpage
+  file:
+    path: /var/www/html/index.html
+    state: absent
+
+- name: Remove Apache
+  yum:
+    name: httpd
+    state: absent

@@ -1,0 +1,17 @@
+- hosts: srv
+  remote_user: root
+  become: yes
+  tasks:
+  - name: Upgrade packages
+    yum:
+      name: '*'
+      state: latest
+  - name: Install Apache
+    yum:
+      name: httpd
+      state: latest
+  - name: Install Apache
+    yum:
+      name: httpd
+      state: removed    
+      

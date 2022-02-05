@@ -1,0 +1,25 @@
+---
+# tasks file for apache
+- name: Upgrade packages
+  yum:
+    name: '*'
+    state: latest
+- name: Install Apache
+  yum:
+    name: httpd
+    state: latest
+  notify:
+    - Restart Apache  
+- name: Create Webpage
+  shell:
+    cmd: echo "Hello from the Ansible configured website" >/var/www/html/index.html
+- name: Copy Files
+  copy:
+    src: /home/sumit/Documents/Ansible/AWS/mysite
+    dest: /var/www/html/
+- name: Get public IP
+  shell:
+    cmd: curl http://169.254.169.254/latest/meta-data/public-ipv4
+  register: curl
+- debug: var=curl.stdout_lines
+

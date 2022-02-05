@@ -1,0 +1,6 @@
+---
+# handlers file for db
+- name: start db
+  service:
+    name: mariadb
+    state: started
