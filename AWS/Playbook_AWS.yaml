@@ -1,4 +1,4 @@
-- hosts: srv
+- hosts: web
   remote_user: root
   become: yes
   tasks:
