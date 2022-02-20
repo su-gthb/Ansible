@@ -1,0 +1,19 @@
+- hosts: web
+  remote_user: ec2-user
+  become: yes
+  tasks: 
+   - name:  copy mongodb base file
+     copy:
+      src: /home/sumit/Documents/Ansible/DevOps/mongodb-org-4.2.repo
+      dest: /etc/yum.repos.d/
+   - name: Upgrade packages
+     yum:
+      name: '*'
+      state: latest
+   - name: remove packages
+     yum:
+      name: "{{ item }}"
+      state: absent
+     loop:
+     - httpd
+     - mongodb-org

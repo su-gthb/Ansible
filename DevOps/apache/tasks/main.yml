@@ -1,0 +1,14 @@
+---
+# tasks file for apache
+- name: Install Apache
+  yum:
+    name: httpd
+    state: present
+- name: Creating webpage with host public IP
+  shell:
+    cmd: curl http://169.254.169.254/latest/meta-data/public-ipv4 > /var/www/html/index.html
+- name: Restart Apache
+  shell:
+    cmd: systemctl restart httpd      
+    
+

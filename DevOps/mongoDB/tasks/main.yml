@@ -1,0 +1,6 @@
+---
+# tasks file for mongoDB
+- name: Install MongoDB
+  yum:
+   name: mongodb-org
+   state: present

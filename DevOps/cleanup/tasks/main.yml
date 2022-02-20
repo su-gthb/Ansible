@@ -1,0 +1,9 @@
+---
+# tasks file for cleanup
+- name: Wipe Everything
+  yum:
+    name: "{{  item  }}"
+    state: removed
+  loop:
+    - httpd
+    - mongodb-org

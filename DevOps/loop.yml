@@ -1,0 +1,57 @@
+- hosts: web
+  remote_user: ec2-user
+  become: yes
+  tasks: 
+   - name:  copy mongodb base file
+     copy:
+      src: /home/sumit/Documents/Ansible/DevOps/mongodb-org-4.2.repo
+      dest: /etc/yum.repos.d/
+   - name: Upgrade packages
+     yum:
+      name: '*'
+      state: latest
+   - name: Install Apache
+     yum:
+      name: "{{ item }}"
+      state: present
+     loop:
+     - httpd
+     - mongodb-org
+     notify:
+     - Restart Apache 
+     - Restart mongodb-org  
+   - name: Create Webpage
+     shell:
+      cmd: echo "Hello from the Ansible configured website" >/var/www/html/index.html
+   - name: Copy Files
+     copy:
+      src: /home/sumit/Documents/Ansible/AWS/mysite/
+      dest: /var/www/html/ 
+      mode: '777'     
+   - name: Get public IP
+     shell:
+      cmd: ifconfig
+     register: ifconfig
+   - debug: 
+      msg: "{{ ifconfig.stdout }}"  
+       
+   - name: Get MongoDB Version
+     shell:
+     command: mongo -version
+     register: mongodb_version 
+   - debug:
+      msg: “{{ mongodb_version }}”    
+#  - debug: var= mongo.stdout
+  handlers  :
+  - name: Restart Apache
+    service: 
+      name: httpd
+      state: reloaded
+  - name: Restart Mongodb
+    service: 
+      name: mongo
+      state: reloaded
+  - name: Restart Jenkins
+    service: 
+      name : jenkins
+      state: reloaded
