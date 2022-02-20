@@ -1,9 +1,8 @@
 all:
-  hosts:
-    web:
-      ansible_host: 
-       - ec2-35-154-77-11.ap-south-1.compute.amazonaws.com
-       - ec2-3-110-148-57.ap-south-1.compute.amazonaws.com
-      ansible_port: 22
-      ansible_user: ec2-user
-      ansible_ssh_private_key_file: /home/sumit/.ssh/ap-ansible.pem
+  web:
+    ansible_host: 
+      - ec2-52-66-213-158.ap-south-1.compute.amazonaws.com:
+      - ec2-52-66-198-83.ap-south-1.compute.amazonaws.com:
+    ansible_port: 22
+    ansible_user: ec2-user
+    ansible_ssh_private_key_file: /home/sumit/.ssh/ap-ansible.pem
